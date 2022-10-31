@@ -2,7 +2,7 @@
 
 set -e
 
-n_iterations=5
+n_iterations=3
 explain_analyze=""
 
 curdir=$(pwd)
