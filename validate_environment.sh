@@ -15,8 +15,6 @@ nsegs=$(psql -d postgres -c "select count() from gp_segment_configuration where 
 
 declare -A checked_variables
 
-checked_variables['shared_buffers']='2GB'
-checked_variables['statement_mem']='512MB'
 checked_variables['max_parallel_workers_per_gather']=$(( ($ncpucores / $nsegs) - 1 ))
 checked_variables['gp_cached_segworkers_threshold']='10'
 
@@ -44,12 +42,12 @@ EOF
             gpconfig -c ${key} -v "${expected}"
         fi
     else
-        echo "shared_buffers=${actual} ... ok"
+        echo "${key}=${actual} ... ok"
     fi
 done
 
-# require a restart of the matrixdb for the changes to take effect.
-mxstop -ar
+# Reload gucs
+mxstop -u
 
 cat << EOF
 Environment is properly configured, now you can start generate dataset and follow the guides to run SSB benchmark.
