@@ -5,9 +5,9 @@ set -e
 # default setting
 scale=1
 
+partition_interval="1 year"
+
 index_columns="s_region,c_region,p_mfgr,s_nation,c_nation,p_category,lo_orderdate"
-partition_interval="1"
-partition_unit="year"
 
 ssb_database_name=""
 
@@ -34,7 +34,6 @@ Args:
    
 
 Usage:
-
     Generate flat table with 1GB dataset.
 
         ./generate_flat_table.sh -s 1
@@ -52,9 +51,7 @@ function parse_args()
     case "$opt" in
         s) scale="$OPTARG" ;;
         i)
-        partition_interval=$(echo "$OPTARG"|awk -F'=' '{ print $1 }')
-        partition_unit=$(echo "$OPTARG"|awk -F'=' '{ print $2 }')
-        ;;
+        partition_interval="$OPTARG";;
         D) ssb_database_name="$OPTARG";;
         h)
         show_help
@@ -124,6 +121,7 @@ psql -Aqtbe -P pager=off -v ON_ERROR_STOP=ON \
           -v withopts= \
           -v tname=${enum_table_name} \
           -v dynaint=${dynaint} \
+          -v par="'${partition_interval}'" \
           -v e_lo_orderpriority=text \
           -v e_lo_shipmode=text \
           -v e_c_city=text \
