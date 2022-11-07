@@ -53,5 +53,5 @@ create table :tname
  using mars2
  distributed by (lo_orderkey)
  partition by range (lo_orderdate)
- ( start('1992-01-01') end('1999-01-01') every(interval '1 year') )
+ ( start('1992-01-01') end('1999-01-01') every(interval :par) )
 ;
