@@ -134,7 +134,7 @@ fi
 if [ "$scale" -gt "100" ]; then
     query_optimized="set statement_mem='32MB'"
 else
-    query_optimized="set matrix.enable_mxv_hash_aggregate=off"
+    query_optimized=""
 fi
 
 reportdir="$generated_dir/scale-${scale}-data/reports/${test_name}"
