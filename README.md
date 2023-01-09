@@ -35,3 +35,13 @@ SSB Benchmark for MatrixDB
 ./ssb.sh -s 1
 ```
 
+# A simple example using 100GB dataset
+```
+scale=100
+./validate_environment.sh
+./generate_data.sh -s $scale
+./import_data.sh -s $scale -t copy
+./generate_flat_table.sh -s $scale
+./ssb.sh -s $scale
+
+```
