@@ -1,7 +1,7 @@
 SSB Benchmark for MatrixDB
 ---
 
-*NOTE. you may checkout detail help message via -h.*
+*NOTE. you may checkout detail help message via `-h`, eg. `./generate_data.sh -h`*
 
 # Step 1. validate environment before moving forward
 
@@ -43,5 +43,4 @@ scale=100
 ./import_data.sh -s $scale -t copy
 ./generate_flat_table.sh -s $scale
 ./ssb.sh -s $scale
-
 ```
